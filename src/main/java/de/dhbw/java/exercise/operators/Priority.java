@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 public class Priority {
     private static final Logger logger = LoggerFactory.getLogger(Priority.class);
 
+    @SuppressWarnings("java:S2589")  // Suppress 'Remove Expression which always evaluates to true/false -> intended
     public static void main(final String[] args) {
         logger.info("1: {}" ,(5 / 2 * 2));
         logger.info("2: {}", (9. / 2 * 5));
