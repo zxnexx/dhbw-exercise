@@ -1,3 +1,5 @@
+.idea
+
 ### Bupro specific
 # Password store for local testing
 src/main/resources/application.yml
