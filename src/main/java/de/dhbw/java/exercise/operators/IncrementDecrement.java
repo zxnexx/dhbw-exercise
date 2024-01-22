@@ -12,8 +12,8 @@ public class IncrementDecrement {
         j = ++i;
         int k = j++ + ++i;
         logger.info("k: {}", k);
-        logger.info("*: {}{}", j++, ++i);
-        logger.info("{}{}", j++, ++i);
+        logger.info("*: {}", j++ + ++i);
+        logger.info("{}", j++ + ++i);
         int m = j++ * ++i;
         logger.info("m: {}", m);
         int n = --j * --i;
