@@ -13,18 +13,23 @@ public class Priority {
         boolean a = true;
         boolean b = false;
         boolean c = false;
+        //noinspection ConstantValue
         logger.info("3: {}", (a && b || c));
         char ch = 'c';
+        //noinspection ConstantValue
         logger.info("4: {}", ('a' + 1 < ch));
         int i = 1;
         int j = 2;
         int k = 3;
+        //noinspection ConstantValue
         logger.info("5: {}", (-i - 5 * j >= k + 1));
         i = 1;
+        //noinspection ConstantValue
         if (a || (++i == 2)) {
             logger.info("6: {}", i);
         }
         i = 1;
+        //noinspection ConstantValue
         if (a || (++i == 2)) {
             logger.info("7: {}", i);
         }

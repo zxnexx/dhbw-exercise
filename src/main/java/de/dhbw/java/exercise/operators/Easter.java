@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class Easter {
     private static final Logger logger = LoggerFactory.getLogger(Easter.class);
 
+    @SuppressWarnings({"java:S2189", "InfiniteLoopStatement"})
     public static void main(final String[] args) {
         while (true) {
             Scanner myObj = new Scanner(System.in);
