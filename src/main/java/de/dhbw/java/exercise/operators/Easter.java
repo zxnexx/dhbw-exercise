@@ -11,8 +11,8 @@ public class Easter {
     @SuppressWarnings({"java:S2189", "InfiniteLoopStatement"})
     public static void main(final String[] args) {
         while (true) {
-            Scanner myObj = new Scanner(System.in);
-            int year = myObj.nextInt();
+            final var scanner = new Scanner(System.in);
+            int year = scanner.nextInt();
 
             int a = year % 19;
             int b = year % 4;
