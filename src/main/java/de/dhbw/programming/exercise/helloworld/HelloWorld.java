@@ -1,4 +1,4 @@
-package de.dhbw.java.exercise.helloworld;
+package de.dhbw.programming.exercise.helloworld;
 
 public class HelloWorld {
     @SuppressWarnings("java:S106")  // Intended use of System.out.println

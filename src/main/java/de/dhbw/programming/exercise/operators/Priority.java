@@ -1,4 +1,4 @@
-package de.dhbw.java.exercise.operators;
+package de.dhbw.programming.exercise.operators;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

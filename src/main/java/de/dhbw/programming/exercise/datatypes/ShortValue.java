@@ -1,4 +1,4 @@
-package de.dhbw.java.exercise.datatypes;
+package de.dhbw.programming.exercise.datatypes;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

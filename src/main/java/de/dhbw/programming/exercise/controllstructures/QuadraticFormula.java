@@ -1,4 +1,4 @@
-package de.dhbw.java.exercise.controllstructures;
+package de.dhbw.programming.exercise.controllstructures;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
