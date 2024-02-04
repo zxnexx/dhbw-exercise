@@ -5,37 +5,38 @@ import java.util.Scanner;
 @SuppressWarnings("java:S106")
 public class AddUp {
     public static void main(final String[] args) {
-        whileLoop();
-        doWhileLoop();
+        final var scanner = new Scanner(System.in);
+        whileLoop(scanner);
+        doWhileLoop(scanner);
     }
 
-    public static void whileLoop() {
-        final var scanner = new Scanner(System.in);
-        var res = 0;
-        while (true) {
-            System.out.println("Zahl eingeben (<0 fuer Abbruch): ");
-            final var i = scanner.nextInt();
-            if (i < 0) {
-                break;
+    public static void whileLoop(final Scanner scanner) {
+        var sum = 0;
+        var running = true;
+        System.out.println("Zahl eingeben (<0 fuer Abbruch): ");
+        while (running) {
+            final var input = scanner.nextInt();
+            if (input < 0) {
+                running = false;
             } else {
-                res += i;
+                sum += input;
             }
         }
-        System.out.printf("Summe: %s%n", res);
+        final var message = String.format("Summe: %s%n", sum);
+        System.out.println(message);
     }
 
-    public static void doWhileLoop() {
-        final var scanner = new Scanner(System.in);
-        var res = 0;
+    public static void doWhileLoop(final Scanner scanner) {
+        var sum = 0;
+        System.out.println("Zahl eingeben (<0 fuer Abbruch): ");
+        var input = 0;
         do {
-            System.out.println("Zahl eingeben (<0 fuer Abbruch): ");
-            final var i = scanner.nextInt();
-            if (i < 0) {
-                break;
-            } else {
-                res += i;
+            input = scanner.nextInt();
+            if (input >= 0) {
+                sum += input;
             }
-        } while (true);
-        System.out.printf("Summe: %s%n", res);
+        } while (input >= 0);
+        final var message = String.format("Summe: %s%n", sum);
+        System.out.println(message);
     }
 }
