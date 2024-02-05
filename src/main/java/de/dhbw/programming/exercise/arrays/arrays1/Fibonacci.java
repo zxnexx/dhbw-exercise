@@ -1,4 +1,4 @@
-package de.dhbw.programming.exercise.arrays;
+package de.dhbw.programming.exercise.arrays.arrays1;
 
 public class Fibonacci {
     private static final int N = 50;

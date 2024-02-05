@@ -1,4 +1,4 @@
-package de.dhbw.programming.exercise.arrays;
+package de.dhbw.programming.exercise.arrays.arrays1;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +16,6 @@ public class Norm {
             comps.add(scanner.nextInt());
         }
 
-        
+
     }
 }
