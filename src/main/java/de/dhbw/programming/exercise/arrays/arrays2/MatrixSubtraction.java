@@ -32,7 +32,7 @@ public class MatrixSubtraction {
         printMatrix(matrixX);
         System.out.println("Y:");
         printMatrix(matrixY);
-        System.out.println("Z:");
+        System.out.println("X-Y:");
         printMatrix(matrixZ);
     }
 
