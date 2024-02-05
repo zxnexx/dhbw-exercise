@@ -2,7 +2,6 @@ package de.dhbw.programming.exercise.controllstructures;
 
 import java.util.Scanner;
 
-@SuppressWarnings("java:S106")
 public class AddUp {
     public static void main(final String[] args) {
         final var scanner = new Scanner(System.in);
@@ -35,6 +34,7 @@ public class AddUp {
             if (input >= 0) {
                 sum += input;
             }
+
         } while (input >= 0);
         final var message = String.format("Summe: %s%n", sum);
         System.out.println(message);
