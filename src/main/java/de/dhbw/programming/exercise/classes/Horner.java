@@ -1,12 +1,10 @@
 package de.dhbw.programming.exercise.classes;
 
-import javax.script.ScriptException;
-
 public class Horner {
     private final double[] nums;
     private final String equation;
 
-    public static void main(final String[] args) throws ScriptException {
+    public static void main(final String[] args) {
         final var h1 = new Horner(new double[]{1.0, 2.0, 3.0});
         System.out.printf("H1: %s%n", h1);
         h1.getValue(2);
@@ -38,15 +36,18 @@ public class Horner {
         return equation;
     }
 
-    public double getValue(final double x) throws ScriptException {
+    public double getValue(final double x) {
         // TODO find solution to parse String to eval
         final var equationValue = this.getEquation();
         // replace all x in equation with double
         equationValue.replaceAll("x", String.valueOf(x));
-
         System.out.println(equationValue);
 
-        return (Double) engine.eval(this.getEquation());
+        final var split = equationValue.split("\\(");
+        for (final var s : split) {
+            System.out.println(s);
+        }
+        return -1.;
     }
 
     public double[] getNums() {
