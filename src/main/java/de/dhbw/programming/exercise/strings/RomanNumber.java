@@ -23,13 +23,13 @@ public class RomanNumber {
 
         final var charArray = input.toCharArray();
 
-        final List<Character> charList = new ArrayList<>();
+        final List<Character> characterList = new ArrayList<>();
         for (final char c : charArray) {
-            charList.add(c);
+            characterList.add(c);
         }
 
-        // map each character in charList to Integer via romanDict
-        final List<Integer> intList = charList.stream().map(romanDict::get).toList();
+        // map each character in characterList to Integer via romanDict
+        final List<Integer> intList = characterList.stream().map(romanDict::get).toList();
 
         final List<Integer> resList = new ArrayList<>();
 
