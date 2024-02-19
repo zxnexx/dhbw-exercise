@@ -1,0 +1,63 @@
+package de.dhbw.programming.exercise.strings;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+public class RomanNumber {
+    public static void main(final String[] args) {
+        final var scanner = new Scanner(System.in);
+        final Map<Character, Integer> romanDict = Map.of(
+                'M', 1000,
+                'D', 500,
+                'C', 100,
+                'L', 50,
+                'X', 10,
+                'V', 5,
+                'I', 1
+        );
+
+        System.out.println("Enter a roman number: ");
+        final String input = scanner.next();
+
+        final var charArray = input.toCharArray();
+
+        final List<Character> charList = new ArrayList<>();
+        for (final char c : charArray) {
+            charList.add(c);
+        }
+
+        // map each character in charList to Integer via romanDict
+        final List<Integer> intList = charList.stream().map(romanDict::get).toList();
+
+        final List<Integer> resList = new ArrayList<>();
+
+        for (int i = 0; i < intList.size(); i++) {
+            if (i + 1 >= intList.size()) {
+                resList.add(i, intList.get(i));
+                break;  // Prevent out of bounds -> means finished
+            } else {
+                if (intList.get(i) < intList.get(i + 1)) {
+                    // smaller number, followed by larger number -> subtract
+                    resList.add(intList.get(i + 1) - intList.get(i));
+                    // increase i, because both numbers were subtracted
+                    i++;
+                } else {
+                    // nothing special, don't subtract
+                    resList.add(intList.get(i));
+                }
+            }
+        }
+
+        System.out.println(intList);
+        System.out.println(resList);
+
+        var res = 0;
+        for (final var i : resList) {
+            res += i;
+        }
+
+        System.out.printf("The value of the number %s is: %d", input, res);
+    }
+}
