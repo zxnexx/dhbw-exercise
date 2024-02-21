@@ -1,0 +1,31 @@
+.even {
+    background-color: lightgray;
+}
+
+table, th, td, tr {
+    border: 1px solid cyan;
+    border-collapse: collapse;
+}
+
+.row :only-child {
+    border: 1px double red;
+    border-collapse: collapse;
+}
+
+#a {
+    font-family: sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+#b {
+    text-align: left;
+}
+
+#m {
+    text-align: right;
+}
+
+.row :nth-child(2) {
+    text-align: center;
+}
