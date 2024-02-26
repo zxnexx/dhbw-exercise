@@ -24,7 +24,7 @@ public class PeriodicTable {
         final ArrayList<Element> res = new ArrayList<>();
         res.addAll(this.elements);  // copy without ref
 
-        res.removeIf(element -> element.getClass().getName().equals("Metal"));
+        res.removeIf(element -> !(element instanceof Metal));
         return res;
     }
 

@@ -32,5 +32,8 @@ public class Main {
         for (final Element e : periodicTable.getElements()) {
             System.out.println(e);
         }
+
+        final var m = periodicTable.getMetals();
+        System.out.printf("METALS: %s%n", m);
     }
 }
