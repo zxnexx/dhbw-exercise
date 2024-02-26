@@ -4,9 +4,9 @@ import java.util.Objects;
 
 public class Vehicle {
     private int amountTyres = 0;
-    private double vMax = 0.0;
-    private double speed = 0.0;
-    private double position = 0.0;
+    protected double vMax = 0.0;
+    protected double speed = 0.0;
+    protected double position = 0.0;
 
     Vehicle(final int amountTyres, final double vMax) {
         this.amountTyres = amountTyres;

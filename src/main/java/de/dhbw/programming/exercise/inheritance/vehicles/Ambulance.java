@@ -18,8 +18,9 @@ public class Ambulance extends Car {
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
-        if (!(o instanceof final Ambulance ambulance)) return false;
+        if (o == null || this.getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
+        final Ambulance ambulance = (Ambulance) o;
         return this.blueLights == ambulance.blueLights;
     }
 
@@ -30,9 +31,11 @@ public class Ambulance extends Car {
 
     @Override
     public String toString() {
-        return super.toString() +
-                " Ambulance{" +
+        return "Ambulance{" +
                 "blueLights=" + this.blueLights +
+                ", vMax=" + this.vMax +
+                ", speed=" + this.speed +
+                ", position=" + this.position +
                 '}';
     }
 }
