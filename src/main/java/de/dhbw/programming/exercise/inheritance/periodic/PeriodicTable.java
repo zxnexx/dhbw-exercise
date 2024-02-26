@@ -20,12 +20,12 @@ public class PeriodicTable {
         return this.elements.stream().filter(element -> element.getOrdinal() == ordinal).findFirst().orElse(null);
     }
 
-    public Element[] getMetals() {
+    public List<Element> getMetals() {
         final ArrayList<Element> res = new ArrayList<>();
         res.addAll(this.elements);  // copy without ref
 
         res.removeIf(element -> element.getClass().getName().equals("Metal"));
-        return (Element[]) res.toArray();
+        return res;
     }
 
     public List<Element> getElements() {
