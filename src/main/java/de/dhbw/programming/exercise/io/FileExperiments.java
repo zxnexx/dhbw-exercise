@@ -11,15 +11,15 @@ public class FileExperiments {
         final var filenames = Arrays.asList("foo1", "foo2", "foo3");
 
         // Delete files
-        for (final var file : filenames) {
-            Files.deleteIfExists(Path.of(testDir + "/" + file));
+        for (final var filename : filenames) {
+            Files.deleteIfExists(testDir.resolve(filename));
         }
         Files.deleteIfExists(testDir);
 
         try {
             Files.createDirectories(testDir);
-            for (final var file : filenames) {
-                final var filePath = testDir.resolve(file);
+            for (final var filename : filenames) {
+                final var filePath = testDir.resolve(filename);
                 Files.createFile(filePath);
             }
             System.out.printf("Absolute Path: {%s}%n", testDir.toAbsolutePath());
