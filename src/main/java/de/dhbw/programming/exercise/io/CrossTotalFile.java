@@ -1,7 +1,10 @@
 package de.dhbw.programming.exercise.io;
 
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Scanner;
@@ -21,12 +24,15 @@ public class CrossTotalFile {
         final var crossTotalDirPath = Path.of("CrossTotal");
         final var crossTotalFilePath = crossTotalDirPath.resolve("result.txt");
 
-        Files.deleteIfExists(crossTotalFilePath);
-        Files.deleteIfExists(crossTotalDirPath);
+        try {
+            Files.createDirectory(crossTotalDirPath);
+            Files.createFile(crossTotalFilePath);
+        } catch (final FileAlreadyExistsException ignored) {
+        }
 
-        Files.createDirectory(crossTotalDirPath);
-        Files.createFile(crossTotalFilePath);
-
-        Files.writeString(crossTotalFilePath, String.format("The cross total of %s is: %s%n", query, res));
+        final var bw = new BufferedWriter(new FileWriter(crossTotalFilePath.toFile(), true));
+        bw.write(String.format("The cross total of %s is: %s", query, res));
+        bw.newLine();
+        bw.close();
     }
 }
