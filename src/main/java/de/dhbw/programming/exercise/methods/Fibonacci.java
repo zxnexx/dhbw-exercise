@@ -12,7 +12,7 @@ public class Fibonacci {
         System.out.println(res);
     }
 
-    private static int fib(int n) {
-        
+    private static int fib(final int n) {
+        return -1;
     }
 }
