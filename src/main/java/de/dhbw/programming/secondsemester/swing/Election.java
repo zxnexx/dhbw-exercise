@@ -9,7 +9,7 @@ public class Election {
         SwingUtilities.invokeLater(() -> {
             final JFrame frame = new JFrame("Election Results");
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            frame.setSize(900, 600);
+            frame.setSize(1200, 600);
             frame.add(new BarChartPanel());
             frame.setVisible(true);
         });
@@ -26,13 +26,13 @@ class BarChartPanel extends JPanel {
     };
 
     @Override
-    protected void paintComponent(final Graphics g) {
-        super.paintComponent(g);
+    protected void paintComponent(final Graphics graphics) {
+        super.paintComponent(graphics);
 
-        final int width = this.getWidth() - this.parties.length * 10;
+        final int width = this.getWidth() - this.parties.length * 60;
         final int height = this.getHeight();
         final int padding = 40;
-        final int barWidth = (width - 2 * padding) / this.parties.length;
+        final int barWidth = (width - 2 * padding) / this.parties.length / 2;
         final int maxBarHeight = height - 2 * padding;
 
         // Find the maximum percentage for scaling
@@ -45,26 +45,35 @@ class BarChartPanel extends JPanel {
         if (maxPercentage <= 0) {
             throw new IllegalArgumentException("maxPercentage cannot be leq than 0");
         }
-
-        // Draw the bars
+        // Draw the bars + outlines + 3d thing
         for (int i = 0; i < this.parties.length; i++) {
             final int barHeight = (int) ((this.percentages[i] / maxPercentage) * maxBarHeight);
-            final int x = padding + i * barWidth + i * 10;
+            final int x = padding + i * barWidth + i * 60;
             final int y = height - padding - barHeight;
+            final int xOffset3d = 20;
+            final int yOffset3d = -10;
 
-            g.setColor(this.colors[i]);
-            g.fillRect(x, y, barWidth, barHeight);
+            graphics.setColor(Color.black);
+            graphics.fillRect(x + xOffset3d - 1, y + yOffset3d - 1, barWidth + 2, barHeight + 2);
+            graphics.setColor(this.colors[i]);
+            graphics.fillRect(x + xOffset3d, y + yOffset3d, barWidth, barHeight);
+            
+            graphics.fillRect(x, y, barWidth, barHeight);
+            graphics.setColor(Color.black);
+            graphics.fillRect(x - 1, y - 1, barWidth + 2, barHeight + 2);
+            graphics.setColor(this.colors[i]);
+            graphics.fillRect(x, y, barWidth, barHeight);
 
             // Draw the percentage text
-            g.setColor(Color.BLACK);
+            graphics.setColor(Color.BLACK);
             final String percentageText = String.format("%.1f%%", this.percentages[i]);
-            final int textWidth = g.getFontMetrics().stringWidth(percentageText);
-            g.drawString(percentageText, x + (barWidth - textWidth) / 2, y - 5);
+            final int textWidth = graphics.getFontMetrics().stringWidth(percentageText);
+            graphics.drawString(percentageText, x + (barWidth - textWidth) / 2, y - 5);
 
             // Draw the party name
             final String partyName = this.parties[i];
-            final int partyNameWidth = g.getFontMetrics().stringWidth(partyName);
-            g.drawString(partyName, x + (barWidth - partyNameWidth) / 2, height - padding + 15);
+            final int partyNameWidth = graphics.getFontMetrics().stringWidth(partyName);
+            graphics.drawString(partyName, x + (barWidth - partyNameWidth) / 2, height - padding + 15);
         }
     }
 }
