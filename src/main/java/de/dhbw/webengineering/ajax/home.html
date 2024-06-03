@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Ah Ja! X</title>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        table {
+            margin: 20px;
+            border-collapse: separate;
+            border: solid black 2px;
+            border-radius: 6px;
+        }
+
+        td, th {
+            padding: 2px;
+            border-left: solid black 1px;
+            border-top: solid black 1px;
+        }
+
+        th {
+            border-top: none;
+        }
+
+        td:first-child, th:first-child {
+            border-left: none;
+        }
+    </style>
+</head>
+<body>
+<h1>Ah Ja! X</h1>
+<button id="load-section-1">Load Section 1</button>
+<button id="load-section-2">Load Section 2</button>
+<table>
+    <thead>
+    <tr>
+        <th>Vorname</th>
+        <th>Nachname</th>
+        <th>Alter</th>
+    </tr>
+    </thead>
+    <tbody id="table-body">
+    <!-- Content will be loaded here -->
+    </tbody>
+</table>
+
+<script src="script.js"></script>
+</body>
+</html>
