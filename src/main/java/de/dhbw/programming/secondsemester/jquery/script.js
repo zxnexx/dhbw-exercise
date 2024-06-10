@@ -81,4 +81,22 @@ $(document).ready(function () {
             '</tr>';
         $('#addressTable tbody').append(newRow);
     });
+
+    // Drag racing zeugs
+    $('#addressTable tbody').sortable({
+        helper: fixHelper,
+        stop: function (event, ui) {
+            ui.item.children('td').each(function () {
+                $(this).width($(this).width());
+            });
+        }
+    }).disableSelection();
+
+    // Drag racing helper
+    var fixHelper = function (e, ui) {
+        ui.children().each(function () {
+            $(this).width($(this).width());
+        });
+        return ui;
+    };
 });
