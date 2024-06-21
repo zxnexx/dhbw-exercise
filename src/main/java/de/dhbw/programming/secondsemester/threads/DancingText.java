@@ -20,6 +20,7 @@ public class DancingText extends JFrame {
     private static final int FRAME_HEIGHT = 600;
 
     private static final String TEXT = "WAVEWAVEWAVE";
+    private final Timer moveTimer;
 
     public DancingText() {
         this.setFont(new Font("Courier", Font.BOLD, 200));
@@ -28,11 +29,21 @@ public class DancingText extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         for (int i = 0; i < TEXT.length(); i++) {
-            this.xPositions.add(100 + 100 * i);
-            this.yPositions.add(BASE_Y_POSITION + SPEED * i);
-            this.yPositionUp.add(true);
             this.colors.add(Color.BLUE);
         }
+
+        // Timer for moving characters
+        this.moveTimer = new Timer(100, e ->
+
+        {
+            for (int i = 0; i < TEXT.length(); i++) {
+                this.xPositions.add(100 + 100 * i);
+                this.yPositions.add(BASE_Y_POSITION + SPEED * i);
+                this.yPositionUp.add(true);
+            }
+            this.repaint();
+        });
+        this.moveTimer.start();
 
         new Thread(new Runnable() {
             @SuppressWarnings("java:S2189")
@@ -68,8 +79,9 @@ public class DancingText extends JFrame {
     }
 
     private Color getRandomColor() {
+        // Only shades of Blue
         final Random random = new Random();
-        return new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
+        return new Color(random.nextInt(100), random.nextInt(100), 156 + random.nextInt(100));
     }
 
     @Override
@@ -82,11 +94,6 @@ public class DancingText extends JFrame {
     }
 
     public static void main(final String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new DancingText().setVisible(true);
-            }
-        });
+        SwingUtilities.invokeLater(() -> new DancingText().setVisible(true));
     }
 }
