@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Address Table</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+</head>
+<body>
+<table id="addressTable" border="1">
+    <thead>
+    <tr>
+        <th>Nam</th>
+        <th>Adressn</th>
+        <th>Telefon</th>
+        <th>Geburtsdog</th>
+        <th>Löschn</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Max Mustermann</td>
+        <td>Musterstrasse 4</td>
+        <td>0170 00100001</td>
+        <td>01.01.2000</td>
+        <td>
+            <button class="deleteBtn">Delete</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<button id="addRowBtn">Add Row</button>
+
+<div id="dialog-confirm" title="Delete Row?" style="display:none;">
+    <p>Bist da dir sicha, dass'd de Reih löschn wuist?</p>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
