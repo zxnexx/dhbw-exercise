@@ -20,7 +20,6 @@ public class DancingText extends JFrame {
     private static final int FRAME_HEIGHT = 600;
 
     private static final String TEXT = "WAVEWAVEWAVE";
-    private final Timer moveTimer;
 
     public DancingText() {
         this.setFont(new Font("Courier", Font.BOLD, 200));
@@ -33,7 +32,7 @@ public class DancingText extends JFrame {
         }
 
         // Timer for moving characters
-        this.moveTimer = new Timer(100, e ->
+        final Timer moveTimer = new Timer(100, e ->
 
         {
             for (int i = 0; i < TEXT.length(); i++) {
@@ -43,7 +42,7 @@ public class DancingText extends JFrame {
             }
             this.repaint();
         });
-        this.moveTimer.start();
+        moveTimer.start();
 
         new Thread(new Runnable() {
             @SuppressWarnings("java:S2189")
