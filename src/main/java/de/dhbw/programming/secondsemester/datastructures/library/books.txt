@@ -1,0 +1,6 @@
+Ein;Wundervolles;1999;PubBuch
+Der Name der Rose;Umberto Eco;1985;Heine
+Illuminati;Dan Brown;2003;Springer
+Of mice and men;John Steinbeck;1955;DTV
+Per Anhalter durch die Galaxie;Douglas Adams;1976;Suhrkamp
+Riemenschneider;Tilman Roehrig;2002;Herder
