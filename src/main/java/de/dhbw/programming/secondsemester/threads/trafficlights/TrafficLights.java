@@ -2,7 +2,6 @@ package de.dhbw.programming.secondsemester.threads.trafficlights;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 enum TrafficLightPhase {
     RED(5000, true, false, false),
@@ -26,7 +25,6 @@ enum TrafficLightPhase {
         return values()[(ordinal() + 1) % values().length];
     }
 
-    // <editor-fold desc="Getter toString">
     public int getDuration() {
         return duration;
     }
@@ -52,39 +50,36 @@ enum TrafficLightPhase {
                 ", green=" + green +
                 '}';
     }
-    // </editor-fold>
 }
 
 public class TrafficLights extends JFrame {
-    private TrafficLightPhase currentPhase = TrafficLightPhase.RED;
-
-    // <editor-fold desc="JFrame config">
     private static final int TL_X_POS = 50;
     private static final int TL_Y_POS = 50;
     private static final int TL_WIDTH = 100;
     private static final int TL_HEIGHT = 300;
+    private static final int OVAL_DIAMETER = 80;
+    private static final int OVAL_PADDING = 10;
     private static final int FRAME_WIDTH = 400;
     private static final int FRAME_HEIGHT = 400;
-    // </editor-fold>
+
+    private TrafficLightPhase currentPhase = TrafficLightPhase.RED;
 
     public TrafficLights() {
         this.setTitle("Traffic Light");
         this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        new Thread(new Runnable() {
-            @SuppressWarnings("java:S2189")
-            @Override
-            public void run() {
-                while (true) {
-                    TrafficLights.this.repaint();
+        new Thread(() -> {
+            while (true) {
+                SwingUtilities.invokeLater(() -> {
                     currentPhase = currentPhase.getNext();
-                    try {
-                        Thread.sleep(currentPhase.getDuration());
-                    } catch (final InterruptedException e) {
-                        e.printStackTrace();
-                        Thread.currentThread().interrupt();
-                    }
+                    repaint();
+                });
+                try {
+                    Thread.sleep(currentPhase.getDuration());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
                 }
             }
         }).start();
@@ -94,23 +89,23 @@ public class TrafficLights extends JFrame {
         g.setColor(Color.black);
         g.fillRect(TL_X_POS, TL_Y_POS, TL_WIDTH, TL_HEIGHT);
         g.setColor(Color.WHITE);
-        g.fillOval(TL_X_POS + 10, TL_Y_POS + 10, TL_WIDTH - 20, TL_HEIGHT - 200 - 20);
-        g.fillOval(TL_X_POS + 10, TL_Y_POS + 100 + 10, TL_WIDTH - 20, TL_HEIGHT - 200 - 20);
-        g.fillOval(TL_X_POS + 10, TL_Y_POS + 200 + 10, TL_WIDTH - 20, TL_HEIGHT - 200 - 20);
+        g.fillOval(TL_X_POS + OVAL_PADDING, TL_Y_POS + OVAL_PADDING, OVAL_DIAMETER, OVAL_DIAMETER);
+        g.fillOval(TL_X_POS + OVAL_PADDING, TL_Y_POS + OVAL_PADDING * 3 + OVAL_DIAMETER, OVAL_DIAMETER, OVAL_DIAMETER);
+        g.fillOval(TL_X_POS + OVAL_PADDING, TL_Y_POS + OVAL_PADDING * 5 + OVAL_DIAMETER * 2, OVAL_DIAMETER, OVAL_DIAMETER);
     }
 
     private void drawTrafficLightPhase(final Graphics g) {
         if (currentPhase.isRed()) {
             g.setColor(Color.RED);
-            g.fillOval(TL_X_POS + 11, TL_Y_POS + 11, TL_WIDTH - 22, TL_HEIGHT - 200 - 22);
+            g.fillOval(TL_X_POS + OVAL_PADDING + 1, TL_Y_POS + OVAL_PADDING, OVAL_DIAMETER, OVAL_DIAMETER);
         }
         if (currentPhase.isYellow()) {
-            g.setColor(Color.yellow);
-            g.fillOval(TL_X_POS + 11, TL_Y_POS + 100 + 11, TL_WIDTH - 22, TL_HEIGHT - 200 - 22);
+            g.setColor(Color.YELLOW);
+            g.fillOval(TL_X_POS + OVAL_PADDING + 1, TL_Y_POS + OVAL_PADDING * 3 + OVAL_DIAMETER, OVAL_DIAMETER, OVAL_DIAMETER);
         }
         if (currentPhase.isGreen()) {
-            g.setColor(Color.green);
-            g.fillOval(TL_X_POS + 11, TL_Y_POS + 200 + 11, TL_WIDTH - 22, TL_HEIGHT - 200 - 22);
+            g.setColor(Color.GREEN);
+            g.fillOval(TL_X_POS + OVAL_PADDING + 1, TL_Y_POS + OVAL_PADDING * 5 + OVAL_DIAMETER * 2, OVAL_DIAMETER, OVAL_DIAMETER);
         }
     }
 
