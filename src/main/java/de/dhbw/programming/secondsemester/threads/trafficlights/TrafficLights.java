@@ -58,8 +58,8 @@ enum TrafficLightPhase {
 }
 
 public class TrafficLights extends JPanel {
-    private static final int TL_X_POS = 0;
-    private static final int TL_Y_POS = 0;
+    private static final int TL_X_POSITION = 0;
+    private static final int TL_Y_POSITION = 0;
     private static final int TL_FRAME_WIDTH = 300;
     private static final int TL_FRAME_HEIGHT = 900;
     private static final int TL_DIAMETER = 200;
@@ -79,7 +79,6 @@ public class TrafficLights extends JPanel {
                 });
             }
         };
-
         scheduler.schedule(changePhaseTask, currentPhase.getDuration(), TimeUnit.MILLISECONDS);
     }
 
@@ -92,11 +91,11 @@ public class TrafficLights extends JPanel {
 
     private void drawTrafficLightFrame(final Graphics g) {
         g.setColor(Color.black);
-        g.fillRect(TL_X_POS, TL_Y_POS, TL_FRAME_WIDTH, TL_FRAME_HEIGHT);
+        g.fillRect(TL_X_POSITION, TL_Y_POSITION, TL_FRAME_WIDTH, TL_FRAME_HEIGHT);
         g.setColor(Color.WHITE);
-        g.fillOval(TL_X_POS + TL_PADDING, TL_Y_POS + TL_PADDING, TL_DIAMETER, TL_DIAMETER);
-        g.fillOval(TL_X_POS + TL_PADDING, TL_Y_POS + TL_PADDING * 3 + TL_DIAMETER, TL_DIAMETER, TL_DIAMETER);
-        g.fillOval(TL_X_POS + TL_PADDING, TL_Y_POS + TL_PADDING * 5 + TL_DIAMETER * 2, TL_DIAMETER, TL_DIAMETER);
+        g.fillOval(TL_X_POSITION + TL_PADDING, TL_Y_POSITION + TL_PADDING, TL_DIAMETER, TL_DIAMETER);
+        g.fillOval(TL_X_POSITION + TL_PADDING, TL_Y_POSITION + TL_PADDING * 3 + TL_DIAMETER, TL_DIAMETER, TL_DIAMETER);
+        g.fillOval(TL_X_POSITION + TL_PADDING, TL_Y_POSITION + TL_PADDING * 5 + TL_DIAMETER * 2, TL_DIAMETER, TL_DIAMETER);
     }
 
     private void drawTrafficLightPhase(final Graphics g) {
@@ -113,7 +112,7 @@ public class TrafficLights extends JPanel {
 
     private void drawTrafficLightCircle(final Graphics g, final Color color, final int yPosMult, final int diameterMult) {
         g.setColor(color);
-        g.fillOval(TL_X_POS + TL_PADDING, TL_Y_POS + TL_PADDING * yPosMult + TL_DIAMETER * diameterMult, TL_DIAMETER, TL_DIAMETER);
+        g.fillOval(TL_X_POSITION + TL_PADDING, TL_Y_POSITION + TL_PADDING * yPosMult + TL_DIAMETER * diameterMult, TL_DIAMETER, TL_DIAMETER);
     }
 
     public static void main(String[] args) {
