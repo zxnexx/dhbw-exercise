@@ -6,6 +6,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import static java.awt.Color.*;
+
 enum TrafficLightPhase {
     RED(5000, true, false, false),
     RED_YELLOW(2000, true, true, false),
@@ -64,6 +66,9 @@ public class TrafficLights extends JPanel {
     private static final int TL_FRAME_HEIGHT = 900;
     private static final int TL_DIAMETER = 200;
     private static final int TL_PADDING = 50;
+    private static final int TL_Y_POSITION_RED = TL_Y_POSITION + TL_PADDING;
+    private static final int TL_Y_POSITION_YELLOW = TL_Y_POSITION + TL_PADDING * 3 + TL_DIAMETER;
+    private static final int TL_Y_POSITION_GREEN = TL_Y_POSITION + TL_PADDING * 5 + TL_DIAMETER * 2;
 
     private TrafficLightPhase currentPhase = TrafficLightPhase.RED;
     private final transient ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -93,26 +98,36 @@ public class TrafficLights extends JPanel {
         g.setColor(Color.black);
         g.fillRect(TL_X_POSITION, TL_Y_POSITION, TL_FRAME_WIDTH, TL_FRAME_HEIGHT);
         g.setColor(Color.WHITE);
-        g.fillOval(TL_X_POSITION + TL_PADDING, TL_Y_POSITION + TL_PADDING, TL_DIAMETER, TL_DIAMETER);
-        g.fillOval(TL_X_POSITION + TL_PADDING, TL_Y_POSITION + TL_PADDING * 3 + TL_DIAMETER, TL_DIAMETER, TL_DIAMETER);
-        g.fillOval(TL_X_POSITION + TL_PADDING, TL_Y_POSITION + TL_PADDING * 5 + TL_DIAMETER * 2, TL_DIAMETER, TL_DIAMETER);
+        g.fillOval(TL_X_POSITION + TL_PADDING, TL_Y_POSITION_RED, TL_DIAMETER, TL_DIAMETER);
+        g.fillOval(TL_X_POSITION + TL_PADDING, TL_Y_POSITION_YELLOW, TL_DIAMETER, TL_DIAMETER);
+        g.fillOval(TL_X_POSITION + TL_PADDING, TL_Y_POSITION_GREEN, TL_DIAMETER, TL_DIAMETER);
     }
 
     private void drawTrafficLightPhase(final Graphics g) {
         if (currentPhase.isRed()) {
-            drawTrafficLightCircle(g, Color.RED, 1, 0);
+            drawTrafficLightCircle(g, RED);
         }
         if (currentPhase.isYellow()) {
-            drawTrafficLightCircle(g, Color.YELLOW, 3, 1);
+            drawTrafficLightCircle(g, Color.YELLOW);
         }
         if (currentPhase.isGreen()) {
-            drawTrafficLightCircle(g, Color.GREEN, 5, 2);
+            drawTrafficLightCircle(g, Color.GREEN);
         }
     }
 
-    private void drawTrafficLightCircle(final Graphics g, final Color color, final int yPosMult, final int diameterMult) {
+    private void drawTrafficLightCircle(final Graphics g, final Color color) {
         g.setColor(color);
-        g.fillOval(TL_X_POSITION + TL_PADDING, TL_Y_POSITION + TL_PADDING * yPosMult + TL_DIAMETER * diameterMult, TL_DIAMETER, TL_DIAMETER);
+        final int yPosition;
+        if (color == RED) {
+            yPosition = TL_Y_POSITION_RED;
+        } else if (color == YELLOW) {
+            yPosition = TL_Y_POSITION_YELLOW;
+        } else if (color == GREEN) {
+            yPosition = TL_Y_POSITION_GREEN;
+        } else {
+            throw new IllegalArgumentException("Illegal color: " + color);
+        }
+        g.fillOval(TL_X_POSITION + TL_PADDING, yPosition, TL_DIAMETER, TL_DIAMETER);
     }
 
     public static void main(String[] args) {
