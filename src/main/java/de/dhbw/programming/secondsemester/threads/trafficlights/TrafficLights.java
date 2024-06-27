@@ -60,10 +60,10 @@ enum TrafficLightPhase {
 public class TrafficLights extends JPanel {
     private static final int TL_X_POS = 0;
     private static final int TL_Y_POS = 0;
-    private static final int TL_WIDTH = 300;
-    private static final int TL_HEIGHT = 900;
-    private static final int OVAL_DIAMETER = 200;
-    private static final int OVAL_PADDING = 50;
+    private static final int TL_FRAME_WIDTH = 300;
+    private static final int TL_FRAME_HEIGHT = 900;
+    private static final int TL_DIAMETER = 200;
+    private static final int TL_PADDING = 50;
 
     private TrafficLightPhase currentPhase = TrafficLightPhase.RED;
     private final transient ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -92,32 +92,32 @@ public class TrafficLights extends JPanel {
 
     private void drawTrafficLightFrame(final Graphics g) {
         g.setColor(Color.black);
-        g.fillRect(TL_X_POS, TL_Y_POS, TL_WIDTH, TL_HEIGHT);
+        g.fillRect(TL_X_POS, TL_Y_POS, TL_FRAME_WIDTH, TL_FRAME_HEIGHT);
         g.setColor(Color.WHITE);
-        g.fillOval(TL_X_POS + OVAL_PADDING, TL_Y_POS + OVAL_PADDING, OVAL_DIAMETER, OVAL_DIAMETER);
-        g.fillOval(TL_X_POS + OVAL_PADDING, TL_Y_POS + OVAL_PADDING * 3 + OVAL_DIAMETER, OVAL_DIAMETER, OVAL_DIAMETER);
-        g.fillOval(TL_X_POS + OVAL_PADDING, TL_Y_POS + OVAL_PADDING * 5 + OVAL_DIAMETER * 2, OVAL_DIAMETER, OVAL_DIAMETER);
+        g.fillOval(TL_X_POS + TL_PADDING, TL_Y_POS + TL_PADDING, TL_DIAMETER, TL_DIAMETER);
+        g.fillOval(TL_X_POS + TL_PADDING, TL_Y_POS + TL_PADDING * 3 + TL_DIAMETER, TL_DIAMETER, TL_DIAMETER);
+        g.fillOval(TL_X_POS + TL_PADDING, TL_Y_POS + TL_PADDING * 5 + TL_DIAMETER * 2, TL_DIAMETER, TL_DIAMETER);
     }
 
     private void drawTrafficLightPhase(final Graphics g) {
         if (currentPhase.isRed()) {
             g.setColor(Color.RED);
-            g.fillOval(TL_X_POS + OVAL_PADDING, TL_Y_POS + OVAL_PADDING, OVAL_DIAMETER, OVAL_DIAMETER);
+            g.fillOval(TL_X_POS + TL_PADDING, TL_Y_POS + TL_PADDING, TL_DIAMETER, TL_DIAMETER);
         }
         if (currentPhase.isYellow()) {
             g.setColor(Color.YELLOW);
-            g.fillOval(TL_X_POS + OVAL_PADDING, TL_Y_POS + OVAL_PADDING * 3 + OVAL_DIAMETER, OVAL_DIAMETER, OVAL_DIAMETER);
+            g.fillOval(TL_X_POS + TL_PADDING, TL_Y_POS + TL_PADDING * 3 + TL_DIAMETER, TL_DIAMETER, TL_DIAMETER);
         }
         if (currentPhase.isGreen()) {
             g.setColor(Color.GREEN);
-            g.fillOval(TL_X_POS + OVAL_PADDING, TL_Y_POS + OVAL_PADDING * 5 + OVAL_DIAMETER * 2, OVAL_DIAMETER, OVAL_DIAMETER);
+            g.fillOval(TL_X_POS + TL_PADDING, TL_Y_POS + TL_PADDING * 5 + TL_DIAMETER * 2, TL_DIAMETER, TL_DIAMETER);
         }
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Traffic Light");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             frame.setSize(300, 935);
             frame.setLocationRelativeTo(null);
             frame.add(new TrafficLights());
