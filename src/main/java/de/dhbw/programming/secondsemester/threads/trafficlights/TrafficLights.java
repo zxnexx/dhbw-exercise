@@ -101,17 +101,19 @@ public class TrafficLights extends JPanel {
 
     private void drawTrafficLightPhase(final Graphics g) {
         if (currentPhase.isRed()) {
-            g.setColor(Color.RED);
-            g.fillOval(TL_X_POS + TL_PADDING, TL_Y_POS + TL_PADDING, TL_DIAMETER, TL_DIAMETER);
+            drawTrafficLightCircle(g, Color.RED, 1, 0);
         }
         if (currentPhase.isYellow()) {
-            g.setColor(Color.YELLOW);
-            g.fillOval(TL_X_POS + TL_PADDING, TL_Y_POS + TL_PADDING * 3 + TL_DIAMETER, TL_DIAMETER, TL_DIAMETER);
+            drawTrafficLightCircle(g, Color.YELLOW, 3, 1);
         }
         if (currentPhase.isGreen()) {
-            g.setColor(Color.GREEN);
-            g.fillOval(TL_X_POS + TL_PADDING, TL_Y_POS + TL_PADDING * 5 + TL_DIAMETER * 2, TL_DIAMETER, TL_DIAMETER);
+            drawTrafficLightCircle(g, Color.GREEN, 5, 2);
         }
+    }
+
+    private void drawTrafficLightCircle(final Graphics g, final Color color, final int yPosMult, final int diameterMult) {
+        g.setColor(color);
+        g.fillOval(TL_X_POS + TL_PADDING, TL_Y_POS + TL_PADDING * yPosMult + TL_DIAMETER * diameterMult, TL_DIAMETER, TL_DIAMETER);
     }
 
     public static void main(String[] args) {
