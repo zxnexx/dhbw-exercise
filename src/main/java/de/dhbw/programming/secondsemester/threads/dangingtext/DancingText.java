@@ -1,4 +1,4 @@
-package de.dhbw.programming.secondsemester.threads;
+package de.dhbw.programming.secondsemester.threads.dangingtext;
 
 import javax.swing.*;
 import java.awt.*;

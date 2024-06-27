@@ -2,6 +2,9 @@ package de.dhbw.programming.secondsemester.threads.trafficlights;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 enum TrafficLightPhase {
     RED(5000, true, false, false),
@@ -25,6 +28,7 @@ enum TrafficLightPhase {
         return values()[(ordinal() + 1) % values().length];
     }
 
+    // <editor-fold desc="Getter, toString()">
     public int getDuration() {
         return duration;
     }
@@ -50,39 +54,40 @@ enum TrafficLightPhase {
                 ", green=" + green +
                 '}';
     }
+    // </editor-fold>
 }
 
-public class TrafficLights extends JFrame {
-    private static final int TL_X_POS = 50;
-    private static final int TL_Y_POS = 50;
-    private static final int TL_WIDTH = 100;
-    private static final int TL_HEIGHT = 300;
-    private static final int OVAL_DIAMETER = 80;
-    private static final int OVAL_PADDING = 10;
-    private static final int FRAME_WIDTH = 400;
-    private static final int FRAME_HEIGHT = 400;
+public class TrafficLights extends JPanel {
+    private static final int TL_X_POS = 0;
+    private static final int TL_Y_POS = 0;
+    private static final int TL_WIDTH = 300;
+    private static final int TL_HEIGHT = 900;
+    private static final int OVAL_DIAMETER = 200;
+    private static final int OVAL_PADDING = 50;
 
     private TrafficLightPhase currentPhase = TrafficLightPhase.RED;
+    private final transient ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     public TrafficLights() {
-        this.setTitle("Traffic Light");
-        this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        new Thread(() -> {
-            while (true) {
+        Runnable changePhaseTask = new Runnable() {
+            @Override
+            public void run() {
                 SwingUtilities.invokeLater(() -> {
                     currentPhase = currentPhase.getNext();
                     repaint();
+                    scheduler.schedule(this, currentPhase.getDuration(), TimeUnit.MILLISECONDS);
                 });
-                try {
-                    Thread.sleep(currentPhase.getDuration());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    Thread.currentThread().interrupt();
-                }
             }
-        }).start();
+        };
+
+        scheduler.schedule(changePhaseTask, currentPhase.getDuration(), TimeUnit.MILLISECONDS);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        drawTrafficLightFrame(g);
+        drawTrafficLightPhase(g);
     }
 
     private void drawTrafficLightFrame(final Graphics g) {
@@ -97,26 +102,26 @@ public class TrafficLights extends JFrame {
     private void drawTrafficLightPhase(final Graphics g) {
         if (currentPhase.isRed()) {
             g.setColor(Color.RED);
-            g.fillOval(TL_X_POS + OVAL_PADDING + 1, TL_Y_POS + OVAL_PADDING, OVAL_DIAMETER, OVAL_DIAMETER);
+            g.fillOval(TL_X_POS + OVAL_PADDING, TL_Y_POS + OVAL_PADDING, OVAL_DIAMETER, OVAL_DIAMETER);
         }
         if (currentPhase.isYellow()) {
             g.setColor(Color.YELLOW);
-            g.fillOval(TL_X_POS + OVAL_PADDING + 1, TL_Y_POS + OVAL_PADDING * 3 + OVAL_DIAMETER, OVAL_DIAMETER, OVAL_DIAMETER);
+            g.fillOval(TL_X_POS + OVAL_PADDING, TL_Y_POS + OVAL_PADDING * 3 + OVAL_DIAMETER, OVAL_DIAMETER, OVAL_DIAMETER);
         }
         if (currentPhase.isGreen()) {
             g.setColor(Color.GREEN);
-            g.fillOval(TL_X_POS + OVAL_PADDING + 1, TL_Y_POS + OVAL_PADDING * 5 + OVAL_DIAMETER * 2, OVAL_DIAMETER, OVAL_DIAMETER);
+            g.fillOval(TL_X_POS + OVAL_PADDING, TL_Y_POS + OVAL_PADDING * 5 + OVAL_DIAMETER * 2, OVAL_DIAMETER, OVAL_DIAMETER);
         }
     }
 
-    @Override
-    public void paint(final Graphics g) {
-        super.paint(g);
-        this.drawTrafficLightFrame(g);
-        this.drawTrafficLightPhase(g);
-    }
-
-    public static void main(final String[] args) {
-        SwingUtilities.invokeLater(() -> new TrafficLights().setVisible(true));
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Traffic Light");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(300, 935);
+            frame.setLocationRelativeTo(null);
+            frame.add(new TrafficLights());
+            frame.setVisible(true);
+        });
     }
 }
