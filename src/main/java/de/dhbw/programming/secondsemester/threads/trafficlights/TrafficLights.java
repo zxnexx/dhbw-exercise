@@ -26,7 +26,7 @@ enum TrafficLightPhase {
         this.green = green;
     }
 
-    public TrafficLightPhase getNext() {
+    public TrafficLightPhase getNextPhase() {
         return values()[(ordinal() + 1) % values().length];
     }
 
@@ -70,15 +70,18 @@ public class TrafficLights extends JPanel {
     private static final int TL_Y_POSITION_YELLOW = TL_Y_POSITION + TL_PADDING * 3 + TL_DIAMETER;
     private static final int TL_Y_POSITION_GREEN = TL_Y_POSITION + TL_PADDING * 5 + TL_DIAMETER * 2;
 
-    private TrafficLightPhase currentPhase = TrafficLightPhase.RED;
-    private final transient ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private TrafficLightPhase currentPhase;
+    private transient final ScheduledExecutorService scheduler;
 
     public TrafficLights() {
+        currentPhase = TrafficLightPhase.RED;
+        scheduler = Executors.newScheduledThreadPool(1);
+
         Runnable changePhaseTask = new Runnable() {
             @Override
             public void run() {
                 SwingUtilities.invokeLater(() -> {
-                    currentPhase = currentPhase.getNext();
+                    currentPhase = currentPhase.getNextPhase();
                     repaint();
                     scheduler.schedule(this, currentPhase.getDuration(), TimeUnit.MILLISECONDS);
                 });
