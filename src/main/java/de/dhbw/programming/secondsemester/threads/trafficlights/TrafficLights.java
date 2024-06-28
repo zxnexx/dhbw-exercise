@@ -71,7 +71,7 @@ public class TrafficLights extends JPanel {
     private static final int TL_Y_POSITION_GREEN = TL_Y_POSITION + TL_PADDING * 5 + TL_DIAMETER * 2;
 
     private TrafficLightPhase currentPhase;
-    private transient final ScheduledExecutorService scheduler;
+    private final transient ScheduledExecutorService scheduler;
 
     public TrafficLights() {
         currentPhase = TrafficLightPhase.RED;
